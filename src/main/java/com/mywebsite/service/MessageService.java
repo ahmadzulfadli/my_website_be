@@ -23,7 +23,7 @@ public class MessageService {
     }
 
     // Response
-    public MessageResponse toMessageResponse(Message response){
+    private MessageResponse toMessageResponse(Message response){
         return MessageResponse.builder()
         .name(response.getName())
         .email(response.getEmail())
@@ -31,7 +31,7 @@ public class MessageService {
         .build();
     }
 
-    public WebResponse toWebResponse(String status, Object message, Object data){
+    private WebResponse toWebResponse(String status, Object message, Object data){
         return WebResponse.builder()
         .status(status)
         .message(message)
