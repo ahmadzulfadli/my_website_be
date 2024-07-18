@@ -2,8 +2,8 @@ package com.mywebsite.controller;
 
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -23,9 +23,10 @@ public class ImageControler {
 
     // Create
     @PostMapping("upload")
-    public WebResponse upload(@RequestBody MultipartFile request){
-        return imageService.create(request);
+    public WebResponse upload(@RequestParam("image") MultipartFile request){
+        return imageService.upload(request);
     }
+    
     // Read
     // Update
     // Delete
