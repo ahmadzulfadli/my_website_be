@@ -4,7 +4,9 @@ import java.io.File;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.Date;
+import java.util.List;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -22,13 +24,16 @@ public class ImageService {
 
     private String imagePath = "/home/ubuntu/data/image/mywebsite";
 
+    @Autowired
     private ImageRepository imageRepository;
+
+    @Autowired
     private HistoryImageRepository historyImageRepository;
 
-    public ImageService(ImageRepository imageRepository, HistoryImageRepository historyImageRepository){
-        this.imageRepository = imageRepository;
-        this.historyImageRepository = historyImageRepository;
-    }
+    // public ImageService(ImageRepository imageRepository, HistoryImageRepository historyImageRepository){
+    //     this.imageRepository = imageRepository;
+    //     this.historyImageRepository = historyImageRepository;
+    // }
     
     // Response
     private ImageResponse toImageResponse(Image image, HistoryImage historyImage){
@@ -64,9 +69,9 @@ public class ImageService {
             File destination = new File(imagePath + "/active/", request.getOriginalFilename());
 
             HistoryImage historyImage = new HistoryImage();
-            Image image = new Image();
+            Image image = this.imageRepository.findByFilename(request.getOriginalFilename());
             
-            // Chek apakah file sudah ada pada server
+            // Chek apakah file sudah ada findByFilenamepada server
             if (destination.exists()) {
                 // Move File to archive
                 File pathUpdate = new File(imagePath + "/archive/", dateTime + request.getOriginalFilename());
@@ -94,7 +99,7 @@ public class ImageService {
 
             image = imageRepository.save(image);
         
-            return toWebResponse("success", "Success upload file", toImageResponse(image, historyImage));
+            return toWebResponse("success", "Success upload file", toImageResponse(image.get(0), historyImage));
         } catch (Exception e) {
             return toWebResponse("failed", e.getMessage(), null);
         }
