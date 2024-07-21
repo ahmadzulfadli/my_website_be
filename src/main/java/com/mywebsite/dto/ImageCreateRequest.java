@@ -7,7 +7,7 @@ import lombok.Setter;
 
 @Getter
 @Setter
-public class ImageRequest {
+public class ImageCreateRequest {
 
     private MultipartFile file;
 }

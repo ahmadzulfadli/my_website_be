@@ -1,17 +1,16 @@
 package com.mywebsite.dto;
 
-import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.Getter;
+import lombok.Setter;
 
-@AllArgsConstructor
-@NoArgsConstructor
+@Setter
+@Getter
 @Data
 @Builder
 public class ImageResponse {
     private String filename;
-    private String filePath;
-    private String oldFilename;
-    private String oldFilePath;
+    private String filepath;
+    private String kategory;
 }

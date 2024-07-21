@@ -1,6 +1,7 @@
 package com.mywebsite.controller;
 
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -23,11 +24,15 @@ public class ImageControler {
 
     // Create
     @PostMapping("upload")
-    public WebResponse upload(@RequestParam("image") MultipartFile request){
-        return imageService.upload(request);
+    public WebResponse upload(@RequestParam("image") MultipartFile request, @RequestParam("kategory") String kategory){
+        return imageService.upload(request, kategory);
     }
     
     // Read
+    @GetMapping("kategory")
+    public WebResponse getByKategory(@RequestParam("kategory") String kategory){
+        return imageService.getByKategoryId(kategory);
+    }
     // Update
     // Delete
 }
