@@ -1,5 +1,7 @@
 package com.mywebsite.controller;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -18,20 +20,29 @@ public class ImageControler {
 
     private ImageService imageService;
 
+    Logger logger = LoggerFactory.getLogger(ImageControler.class);
+
     public ImageControler(ImageService imageService){
         this.imageService = imageService;
     }
 
     // Create
     @PostMapping("upload")
-    public WebResponse upload(@RequestParam("image") MultipartFile request, @RequestParam("kategory") String kategory){
-        return imageService.upload(request, kategory);
+    public WebResponse upload(@RequestParam("image") MultipartFile image, @RequestParam("kategory") String kategory){
+        logger.info("ImageController upload request >> {} and {}", image, kategory);
+        WebResponse response = imageService.upload(image, kategory);
+        logger.info("ImageController upload response >> {}", response);
+        return response;
     }
     
     // Read
     @GetMapping("kategory")
     public WebResponse getByKategory(@RequestParam("kategory") String kategory){
-        return imageService.getByKategoryId(kategory);
+        logger.info("ImageController getByKategory request >> {}", kategory);
+        WebResponse response = imageService.getByKategoryId(kategory);
+        logger.info("ImageController getByKategory response >> {}", response);
+        return response;
+
     }
     // Update
     // Delete
